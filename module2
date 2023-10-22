@@ -1,0 +1,54 @@
+let arrToSort = [2, 3, 4, 324, 54, 123, 4, 3, 111];
+function quickSort(arr) {
+
+    if (arr.length <= 1) {
+        return (arr);
+    }
+    let pivot = arr[arr.length-1];
+
+    let rightArr = [];
+    let leftArr = [];
+    let midArr = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        if (pivot > arr[i]) {
+            leftArr.push(arr[i]);;
+        } else if ( pivot < arr[i] ) {
+            rightArr.push(arr[i]);
+        } else if (pivot == arr[i]) {
+            midArr.push(arr[i]);
+        }
+    }
+    return([...quickSort(leftArr), ...midArr,...quickSort(rightArr)]);
+}
+function binarySearch(arr, target) {
+    let isExist = false;    
+    if (arr.length === 1) {
+        return(isExist);
+    }
+    let midElem = Math.floor(arr.length / 2) - 1;
+    console.log(arr, arr[midElem])
+    if (arr[midElem] === target) {
+        isExist = true;
+        return(isExist);
+    }
+    if (arr[midElem] < target) {
+        return ( binarySearch(arr.slice(midElem + 1), target));
+    } else if (arr[midElem] > target){
+        return ( binarySearch(arr.slice(0, midElem), target));
+    }
+}
+
+function allPermutations(nums, permutation = [], answer = []) {
+    if (nums.length === 0) {
+        answer.push([...permutation]);
+    }
+    for (let i = 0; i < nums.length; i++) {
+        permutation.push(nums[i]);
+        const choises = nums.filter((number, index) => index !== i); 
+        allPermutations(choises, permutation, answer)   
+        permutation.pop();
+    }
+    return answer;
+};
+console.log(allPermutations([1,2,3]))
